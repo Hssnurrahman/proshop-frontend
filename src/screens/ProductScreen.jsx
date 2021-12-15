@@ -1,15 +1,24 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { Button, Card, Col, Image, ListGroup, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
 import { useParams } from "react-router-dom";
+
 import Rating from "../components/Rating";
-import products from "../products";
 
 const ProductScreen = () => {
+  const [product, setProduct] = useState([]);
+
   const { id } = useParams();
 
-  const product = products.find((product) => product._id === id);
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const response = await fetch(`/api/products/${id}`);
+      const result = await response.json();
+      setProduct(result);
+    };
+
+    fetchProduct();
+  }, [id]);
 
   return (
     <div>
@@ -56,6 +65,7 @@ const ProductScreen = () => {
               </ListGroup.Item>
               <ListGroup.Item>
                 <Button
+                  disabled={product.countInStock === 0}
                   style={{ width: "100%" }}
                   className="rounded"
                   type="button"
