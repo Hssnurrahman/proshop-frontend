@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   PRODUCT_DETAILS_FAIL,
   PRODUCT_DETAILS_REQUEST,
@@ -31,11 +32,13 @@ export const productDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
 
-    const response = await fetch(`http://localhost:5000/api/products/${id}`);
+    console.log(id);
 
-    const product = await response.json();
+    const { data } = await axios.get(
+      `http://localhost:5000/api/products/${id}`
+    );
 
-    dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: product });
+    dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: PRODUCT_DETAILS_FAIL,

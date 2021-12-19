@@ -1,7 +1,13 @@
-import { ADD_TO_CART, REMOVE_FROM_CART } from "../constants/cartConstants";
+import {
+  ADD_TO_CART,
+  CART_SAVE_PAYMENT_METHOD,
+  CART_SAVE_SHIPPING_ADDRESS,
+  REMOVE_FROM_CART,
+} from "../constants/cartConstants";
 
 const initialState = {
   cartItems: [],
+  shippingAddress: {},
 };
 
 export const cartReducer = (state = initialState, action) => {
@@ -12,8 +18,6 @@ export const cartReducer = (state = initialState, action) => {
       const existingItem = state.cartItems.find(
         (cart) => cart.product === item.product
       );
-
-      console.log(existingItem);
 
       if (existingItem) {
         return {
@@ -28,7 +32,16 @@ export const cartReducer = (state = initialState, action) => {
           cartItems: [...state.cartItems, item],
         };
       }
-
+    case CART_SAVE_SHIPPING_ADDRESS:
+      return {
+        ...state,
+        shippingAddress: action.payload,
+      };
+    case CART_SAVE_PAYMENT_METHOD:
+      return {
+        ...state,
+        paymentMethod: action.payload,
+      };
     case REMOVE_FROM_CART:
       return {
         ...state,
