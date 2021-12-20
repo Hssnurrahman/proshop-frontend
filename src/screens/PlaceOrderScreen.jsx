@@ -35,8 +35,6 @@ const PlaceOrderScreen = () => {
 
   const { order, success, error } = orderCreate;
 
-  console.log(success);
-
   const placeOrderHandler = (event) => {
     event.preventDefault();
     dispatch(

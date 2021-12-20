@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Button, Col, Form, Row, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getUserDetails, updateUser } from "../actions/userActions";
+import { listMyOrders } from "../actions/orderActions";
 import Message from "../components/Message";
+import Loading from "../components/Loading";
+import { LinkContainer } from "react-router-bootstrap";
 
 const ProfileScreen = () => {
   const navigate = useNavigate();
@@ -19,6 +22,15 @@ const ProfileScreen = () => {
   const userDetails = useSelector((state) => state.userDetails);
   const userLogin = useSelector((state) => state.userLogin);
   const userUpdate = useSelector((state) => state.userUpdate);
+  const orderListMyOrders = useSelector((state) => state.orderListMyOrders);
+
+  const {
+    orders,
+    loading: loadingOrders,
+    error: errorOrders,
+  } = orderListMyOrders;
+
+  console.log(orders);
 
   const { success } = userUpdate;
 
@@ -31,6 +43,7 @@ const ProfileScreen = () => {
   // console.log(userLogin);
 
   useEffect(() => {
+    dispatch(listMyOrders());
     if (!userInfo) {
       navigate("/login");
     } else {
@@ -108,7 +121,65 @@ const ProfileScreen = () => {
           </Button>
         </Form>
       </Col>
-      <Col md={9}>My Orders</Col>
+      <Col md={9}>
+        <h2>My Orders</h2>
+        {loadingOrders ? (
+          <Loading />
+        ) : errorOrders ? (
+          <Message> {errorOrders} </Message>
+        ) : (
+          <Table striped bordered hover responsive className="table-sm">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>DATE</th>
+                <th>TOTAL</th>
+                <th>PAID</th>
+                <th>DELIVERED</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {orders.length > 0 &&
+                orders.map((order) => {
+                  return (
+                    <tr key={order._id}>
+                      <td>{order._id}</td>
+                      <td>{order.createdAt.substring(0, 10)}</td>
+                      <td>${order.totalPrice}</td>
+                      <td>
+                        {order.isPaid ? (
+                          order.paidAt.substring(0, 10)
+                        ) : (
+                          <i
+                            className="fas fa-times"
+                            style={{ color: "red" }}
+                          />
+                        )}
+                      </td>
+                      <td>
+                        {order.isDelivered ? (
+                          order.deliveredAt.substring(0, 10)
+                        ) : (
+                          <i
+                            className="fas fa-times"
+                            style={{ color: "red" }}
+                          />
+                        )}
+                      </td>
+
+                      <td>
+                        <LinkContainer to={`/order/${order._id}`}>
+                          <Button variant="primary">Details</Button>
+                        </LinkContainer>
+                      </td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </Table>
+        )}
+      </Col>
     </Row>
   );
 };
