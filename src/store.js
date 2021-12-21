@@ -4,6 +4,9 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import {
   productDetailsReducer,
   productListReducer,
+  productDeleteReducer,
+  productCreateReducer,
+  productUpdateReducer,
 } from "./reducers/productReducers";
 import { cartReducer } from "./reducers/cartReducers";
 import {
@@ -11,26 +14,39 @@ import {
   userRegisterReducer,
   userDetailsReducer,
   userUpdateReducer,
+  userListReducer,
+  userDeleteReducer,
+  userUpdateProfileReducer,
 } from "./reducers/userReducers";
 import {
   orderCreateReducer,
   orderDetailsReducer,
   orderPayReducer,
   orderListMyOrdersReducer,
+  orderListReducer,
+  orderDeliverReducer,
 } from "./reducers/orderReducers";
 
 const reducers = combineReducers({
   productList: productListReducer,
-  productDetail: productDetailsReducer,
+  productDetails: productDetailsReducer,
   cart: cartReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
-  userUpdate: userUpdateReducer,
+  userProfileUpdate: userUpdateProfileReducer,
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
+  orderDeliver: orderDeliverReducer,
   orderListMyOrders: orderListMyOrdersReducer,
+  orderList: orderListReducer,
+  userList: userListReducer,
+  userDelete: userDeleteReducer,
+  userUpdate: userUpdateReducer,
+  productDelete: productDeleteReducer,
+  productCreate: productCreateReducer,
+  productUpdate: productUpdateReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("user")

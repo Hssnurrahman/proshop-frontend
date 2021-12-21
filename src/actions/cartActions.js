@@ -10,8 +10,6 @@ export const addToCart = (id, quantity) => async (dispatch, getState) => {
 
   const product = await response.json();
 
-  //   console.log(response.json());
-
   dispatch({
     type: ADD_TO_CART,
     payload: {

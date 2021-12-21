@@ -8,14 +8,11 @@ import {
   ListGroup,
   Row,
 } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { productDetails } from "../actions/productActions";
-
-import Rating from "../components/Rating";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { getProductDetails } from "../actions/productActions";
 import Loading from "../components/Loading";
-import Message from "../components/Message";
+import Rating from "../components/Rating";
 
 const ProductScreen = () => {
   const navigate = useNavigate();
@@ -24,14 +21,14 @@ const ProductScreen = () => {
 
   const dispatch = useDispatch();
 
-  const productDetail = useSelector((state) => state.productDetail);
+  const productDetails = useSelector((state) => state.productDetails);
 
-  const { loading, error, product } = productDetail;
+  const { loading, error, product } = productDetails;
 
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(productDetails(id));
+    dispatch(getProductDetails(id));
   }, [id, dispatch]);
 
   const addToCartHandler = () => {
