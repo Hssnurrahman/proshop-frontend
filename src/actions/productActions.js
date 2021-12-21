@@ -12,6 +12,9 @@ import {
   PRODUCT_LIST_FAIL,
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
+  PRODUCT_REVIEW_FAIL,
+  PRODUCT_REVIEW_REQUEST,
+  PRODUCT_REVIEW_SUCCESS,
   PRODUCT_UPDATE_FAIL,
   PRODUCT_UPDATE_REQUEST,
   PRODUCT_UPDATE_SUCCESS,
@@ -150,6 +153,41 @@ export const updateProduct = (product) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: PRODUCT_UPDATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const reviewProduct = (id, review) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: PRODUCT_REVIEW_REQUEST });
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getState().userLogin.userInfo.token}`,
+      },
+    };
+
+    // const { data } = await fetch("http://localhost:5000/api/users/login", {
+    //   method: "post",
+    //   body: JSON.stringify({ email, password }),
+    //   config,
+    // });
+
+    await axios.post(
+      `http://localhost:5000/api/products/${id}/review`,
+      review,
+      config
+    );
+
+    dispatch({ type: PRODUCT_REVIEW_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_REVIEW_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
