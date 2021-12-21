@@ -2,13 +2,17 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-const SearchBox = ({ history }) => {
+const SearchBox = () => {
+
   const navigate = useNavigate();
 
   const [keyword, setKeyword] = useState("");
 
-  const submitHandler = (e) => {
-    e.preventDefault();
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+    console.log(keyword);
+
     if (keyword) {
       navigate(`/search/${keyword}`);
     } else {
@@ -17,12 +21,14 @@ const SearchBox = ({ history }) => {
   };
 
   return (
-    <Form onSubmit={submitHandler} inline="true">
+    <Form onSubmit={submitHandler}>
       <Form.Control
         type="text"
         name="q"
-        onChange={(e) => setKeyword(e.target.value)}
-        placeholder="Search Products..."
+        onChange={(event) => {
+          setKeyword(event.target.value);
+        }}
+        placeholder="Search Products"
         className="mr-sm-2 ml-sm-5"
       ></Form.Control>
       <Button type="submit" variant="outline-success" className="p-2">

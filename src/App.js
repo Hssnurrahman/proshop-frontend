@@ -55,6 +55,7 @@ function App() {
             />
             <Route path="/product/:id/edit" element={<ProductEditScreen />} />
             <Route path="/admin/orderList" element={<OrderListScreen />} />
+            <Route path="/search/:keyword" element={<HomeScreen />} />
             <Route path="*" element={<div>Not Found</div>} />
           </Routes>
         </Container>

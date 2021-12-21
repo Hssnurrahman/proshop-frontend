@@ -7,12 +7,16 @@ import { fetchProducts } from "../actions/productActions";
 import Loading from "../components/Loading";
 import Message from "../components/Message";
 import { useParams } from "react-router-dom";
+
 import Paginate from "../components/Paginate";
 
+
 const HomeScreen = () => {
-  let { keyword, pageNumber } = useParams();
+  const { keyword, pageNumber } = useParams();
 
   const dispatch = useDispatch();
+
+  
 
   const productsList = useSelector((state) => state.productList);
 
@@ -21,6 +25,7 @@ const HomeScreen = () => {
   useEffect(() => {
     dispatch(fetchProducts(keyword, pageNumber));
   }, [dispatch, keyword, pageNumber]);
+
 
   return (
     <>
