@@ -30,17 +30,11 @@ const ProfileScreen = () => {
     error: errorOrders,
   } = orderListMyOrders;
 
-  console.log(orders);
-
   const { success } = userUpdate;
 
   const { loading, user, error } = userDetails;
 
   const { userInfo } = userLogin;
-
-  console.log(success);
-
-  // console.log(userLogin);
 
   useEffect(() => {
     dispatch(listMyOrders());
@@ -140,7 +134,7 @@ const ProfileScreen = () => {
               </tr>
             </thead>
             <tbody>
-              {orders.length > 0 &&
+              {orders &&
                 orders.map((order) => {
                   return (
                     <tr key={order._id}>

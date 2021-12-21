@@ -31,8 +31,6 @@ const LoginScreen = () => {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    console.log(email);
-
     dispatch(loginUser(email, password));
   };
 
