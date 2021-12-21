@@ -6,17 +6,20 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchProducts } from "../actions/productActions";
 import Loading from "../components/Loading";
 import Message from "../components/Message";
+import { useParams } from "react-router-dom";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
+
+  const { keyword } = useParams();
 
   const productsList = useSelector((state) => state.productList);
 
   const { products, error, loading } = productsList;
 
   useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
+    dispatch(fetchProducts(keyword));
+  }, [dispatch, keyword]);
 
   return (
     <>
