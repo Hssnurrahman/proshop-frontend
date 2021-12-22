@@ -30,7 +30,7 @@ export const fetchProducts =
       dispatch({ type: PRODUCT_LIST_REQUEST });
 
       const response = await fetch(
-        `http://localhost:5000/api/products?keyword=${keyword}&page=${pageNumber}`
+        `${process.env.REACT_APP_API_URL}/products?keyword=${keyword}&page=${pageNumber}`
       );
 
       const products = await response.json();
@@ -52,7 +52,7 @@ export const getProductDetails = (id) => async (dispatch) => {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
 
     const { data } = await axios.get(
-      `http://localhost:5000/api/products/${id}`
+      `${process.env.REACT_APP_API_URL}/products/${id}`
     );
 
     dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
@@ -78,13 +78,13 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
       },
     };
 
-    // const { data } = await fetch("http://localhost:5000/api/users/login", {
+    // const { data } = await fetch("${process.env.REACT_APP_API_URL}/users/login", {
     //   method: "post",
     //   body: JSON.stringify({ email, password }),
     //   config,
     // });
 
-    await axios.delete(`http://localhost:5000/api/products/${id}`, config);
+    await axios.delete(`${process.env.REACT_APP_API_URL}/products/${id}`, config);
 
     dispatch({ type: PRODUCT_DELETE_SUCCESS });
   } catch (error) {
@@ -109,14 +109,14 @@ export const createProduct = () => async (dispatch, getState) => {
       },
     };
 
-    // const { data } = await fetch("http://localhost:5000/api/users/login", {
+    // const { data } = await fetch("${process.env.REACT_APP_API_URL}/users/login", {
     //   method: "post",
     //   body: JSON.stringify({ email, password }),
     //   config,
     // });
 
     const { data } = await axios.post(
-      `http://localhost:5000/api/products`,
+      `${process.env.REACT_APP_API_URL}/products`,
       {},
       config
     );
@@ -144,14 +144,14 @@ export const updateProduct = (product) => async (dispatch, getState) => {
       },
     };
 
-    // const { data } = await fetch("http://localhost:5000/api/users/login", {
+    // const { data } = await fetch("${process.env.REACT_APP_API_URL}/users/login", {
     //   method: "post",
     //   body: JSON.stringify({ email, password }),
     //   config,
     // });
 
     const { data } = await axios.patch(
-      `http://localhost:5000/api/products/${product._id}`,
+      `${process.env.REACT_APP_API_URL}/products/${product._id}`,
       product,
       config
     );
@@ -179,14 +179,14 @@ export const reviewProduct = (id, review) => async (dispatch, getState) => {
       },
     };
 
-    // const { data } = await fetch("http://localhost:5000/api/users/login", {
+    // const { data } = await fetch("${process.env.REACT_APP_API_URL}/users/login", {
     //   method: "post",
     //   body: JSON.stringify({ email, password }),
     //   config,
     // });
 
     await axios.post(
-      `http://localhost:5000/api/products/${id}/review`,
+      `${process.env.REACT_APP_API_URL}/products/${id}/review`,
       review,
       config
     );
@@ -207,7 +207,7 @@ export const fetchTopProducts = () => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_TOP_REQUEST });
 
-    const { data } = await axios.get(`http://localhost:5000/api/products/top`);
+    const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/products/top`);
 
     dispatch({ type: PRODUCT_TOP_SUCCESS, payload: data });
   } catch (error) {
