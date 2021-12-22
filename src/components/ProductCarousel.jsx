@@ -3,7 +3,6 @@ import { Carousel, Image } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchTopProducts } from "../actions/productActions";
-import Loading from "./Loading";
 import Message from "./Message";
 
 const ProductCarousel = () => {
@@ -11,7 +10,7 @@ const ProductCarousel = () => {
 
   const productTop = useSelector((state) => state.productTop);
 
-  const { products, error, loading } = productTop;
+  const { products, error } = productTop;
 
   console.log(products);
 

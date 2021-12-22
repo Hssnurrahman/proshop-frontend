@@ -13,7 +13,6 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { getProductDetails, reviewProduct } from "../actions/productActions";
 import Loading from "../components/Loading";
 import Message from "../components/Message";
-import Meta from "../components/Meta";
 import Rating from "../components/Rating";
 
 const ProductScreen = () => {
@@ -67,7 +66,6 @@ const ProductScreen = () => {
       {/* {error && <Message>{error}</Message>} */}
       {!loading && !error && (
         <>
-          <Meta title={`${product.name} | ProShop`} />
           <Row>
             <Col sm={12} md={6}>
               <Image src={product.image} fluid />
