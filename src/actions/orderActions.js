@@ -32,14 +32,14 @@ export const createOrder = (order) => async (dispatch, getState) => {
       },
     };
 
-    // const { data } = await fetch("http://localhost:5000/api/users/login", {
+    // const { data } = await fetch("${process.env.REACT_APP_API_URL}/users/login", {
     //   method: "post",
     //   body: JSON.stringify({ email, password }),
     //   config,
     // });
 
     const { data } = await axios.post(
-      `http://localhost:5000/api/orders`,
+      `${process.env.REACT_APP_API_URL}/orders`,
       order,
       config
     );
@@ -67,14 +67,14 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
       },
     };
 
-    // const { data } = await fetch("http://localhost:5000/api/users/login", {
+    // const { data } = await fetch("${process.env.REACT_APP_API_URL}/users/login", {
     //   method: "post",
     //   body: JSON.stringify({ email, password }),
     //   config,
     // });
 
     const { data } = await axios.get(
-      `http://localhost:5000/api/orders/${id}`,
+      `${process.env.REACT_APP_API_URL}/orders/${id}`,
       config
     );
 
@@ -101,14 +101,14 @@ export const payOrder = (id, paymentResult) => async (dispatch, getState) => {
       },
     };
 
-    // const { data } = await fetch("http://localhost:5000/api/users/login", {
+    // const { data } = await fetch("${process.env.REACT_APP_API_URL}/users/login", {
     //   method: "post",
     //   body: JSON.stringify({ email, password }),
     //   config,
     // });
 
     const { data } = await axios.patch(
-      `http://localhost:5000/api/orders/${id}/pay`,
+      `${process.env.REACT_APP_API_URL}/orders/${id}/pay`,
       paymentResult,
       config
     );
@@ -136,14 +136,14 @@ export const listMyOrders = () => async (dispatch, getState) => {
       },
     };
 
-    // const { data } = await fetch("http://localhost:5000/api/users/login", {
+    // const { data } = await fetch("${process.env.REACT_APP_API_URL}/users/login", {
     //   method: "post",
     //   body: JSON.stringify({ email, password }),
     //   config,
     // });
 
     const { data } = await axios.get(
-      `http://localhost:5000/api/orders/myOrders`,
+      `${process.env.REACT_APP_API_URL}/orders/myOrders`,
       config
     );
 
@@ -170,14 +170,14 @@ export const listOrders = () => async (dispatch, getState) => {
       },
     };
 
-    // const { data } = await fetch("http://localhost:5000/api/users/login", {
+    // const { data } = await fetch("${process.env.REACT_APP_API_URL}/users/login", {
     //   method: "post",
     //   body: JSON.stringify({ email, password }),
     //   config,
     // });
 
     const { data } = await axios.get(
-      `http://localhost:5000/api/orders`,
+      `${process.env.REACT_APP_API_URL}/orders`,
       config
     );
 
@@ -204,14 +204,14 @@ export const deliverOrder = (order) => async (dispatch, getState) => {
       },
     };
 
-    // const { data } = await fetch("http://localhost:5000/api/users/login", {
+    // const { data } = await fetch("${process.env.REACT_APP_API_URL}/users/login", {
     //   method: "post",
     //   body: JSON.stringify({ email, password }),
     //   config,
     // });
 
     const { data } = await axios.patch(
-      `http://localhost:5000/api/orders/${order._id}/deliver`,
+      `${process.env.REACT_APP_API_URL}/orders/${order._id}/deliver`,
       {},
       config
     );

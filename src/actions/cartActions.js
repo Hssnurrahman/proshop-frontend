@@ -6,7 +6,7 @@ import {
 } from "../constants/cartConstants";
 
 export const addToCart = (id, quantity) => async (dispatch, getState) => {
-  const response = await fetch(`http://localhost:5000/api/products/${id}`);
+  const response = await fetch(`${process.env.REACT_APP_API_URL}/products/${id}`);
 
   const product = await response.json();
 
