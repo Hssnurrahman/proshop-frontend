@@ -1,14 +1,11 @@
 import { useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
-import Product from "../components/Product";
-
-import { useSelector, useDispatch } from "react-redux";
-import { fetchProducts } from "../actions/productActions";
-import Loading from "../components/Loading";
-import Message from "../components/Message";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-
+import { fetchProducts } from "../actions/productActions";
+import Meta from "../components/Meta";
 import Paginate from "../components/Paginate";
+import Product from "../components/Product";
 import ProductCarousel from "../components/ProductCarousel";
 
 const HomeScreen = () => {
