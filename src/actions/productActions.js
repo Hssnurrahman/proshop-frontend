@@ -21,13 +21,13 @@ import {
 } from "../constants/productConstants";
 
 export const fetchProducts =
-  (keyword = "") =>
+  (keyword = "", pageNumber = "") =>
   async (dispatch) => {
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });
 
       const response = await fetch(
-        `http://localhost:5000/api/products?keyword=${keyword}`
+        `http://localhost:5000/api/products?keyword=${keyword}&page=${pageNumber}`
       );
 
       const products = await response.json();

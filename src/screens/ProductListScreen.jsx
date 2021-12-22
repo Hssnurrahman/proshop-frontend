@@ -9,17 +9,20 @@ import {
 } from "../actions/productActions";
 import Loading from "../components/Loading";
 import Message from "../components/Message";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { PRODUCT_CREATE_RESET } from "../constants/productConstants";
+import Paginate from "../components/Paginate";
 
 const ProductListScreen = () => {
+  const { pageNumber } = useParams();
+
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
   const productList = useSelector((state) => state.productList);
 
-  const { products, loading, error } = productList;
+  const { products, loading, error, page, pages } = productList;
 
   const productDelete = useSelector((state) => state.productDelete);
 
@@ -48,7 +51,7 @@ const ProductListScreen = () => {
       navigate("/login");
       //   dispatch(fetchProducts());
     } else {
-      dispatch(fetchProducts());
+      dispatch(fetchProducts("", pageNumber));
     }
 
     if (successCreate || createdProduct !== undefined) {
@@ -61,6 +64,7 @@ const ProductListScreen = () => {
     successDelete,
     successCreate,
     createdProduct,
+    pageNumber,
   ]);
 
   const deleteHandler = (id) => {
@@ -71,7 +75,6 @@ const ProductListScreen = () => {
 
   const createProductHandler = () => {
     dispatch(createProduct());
-    // navigate(`/products`);
   };
 
   return (
@@ -133,6 +136,7 @@ const ProductListScreen = () => {
             })}
         </tbody>
       </Table>
+      <Paginate pages={pages} page={page} isAdmin={true} />
     </div>
   );
 };
