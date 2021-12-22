@@ -84,7 +84,10 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
     //   config,
     // });
 
-    await axios.delete(`${process.env.REACT_APP_API_URL}/products/${id}`, config);
+    await axios.delete(
+      `${process.env.REACT_APP_API_URL}/products/${id}`,
+      config
+    );
 
     dispatch({ type: PRODUCT_DELETE_SUCCESS });
   } catch (error) {
@@ -207,7 +210,14 @@ export const fetchTopProducts = () => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_TOP_REQUEST });
 
-    const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/products/top`);
+    console.log("Fetch Top Products Running!");
+
+    console.log(process.env.REACT_APP_API_URL);
+    console.log(` With Back Ticks ${process.env.REACT_APP_API_URL}`);
+
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_API_URL}/products/top`
+    );
 
     dispatch({ type: PRODUCT_TOP_SUCCESS, payload: data });
   } catch (error) {
