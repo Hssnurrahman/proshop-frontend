@@ -19,3 +19,40 @@ h2 {
   font-size: 1.2rem !important;
   padding: 0.5rem;
 }
+
+/* carousel */
+.carousel-item-next,
+.carousel-item-prev,
+.carousel-item.active {
+  display: flex;
+}
+.carousel-caption {
+  position: absolute;
+  top: 0rem;
+}
+
+.carousel-caption h2 {
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.carousel img {
+  height: 20rem;
+  width: 25rem;
+  border-radius: 3rem;
+  padding: 40px;
+  margin: 40px;
+  margin-left: 27.7rem;
+}
+@media (max-width: 900px) {
+  .carousel-caption h2 {
+    font-size: 2.5vw;
+  }
+  .carousel img {
+    height: 10rem;
+    width: 25rem;
+    border-radius: 3rem;
+    /* padding: 40px;
+    margin: 40px; */
+  }
+}

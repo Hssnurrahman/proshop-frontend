@@ -16,6 +16,8 @@ import Paginate from "../components/Paginate";
 const ProductListScreen = () => {
   const { pageNumber } = useParams();
 
+  console.log(pageNumber);
+
   const dispatch = useDispatch();
 
   const navigate = useNavigate();

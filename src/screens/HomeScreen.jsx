@@ -9,14 +9,12 @@ import Message from "../components/Message";
 import { useParams } from "react-router-dom";
 
 import Paginate from "../components/Paginate";
-
+import ProductCarousel from "../components/ProductCarousel";
 
 const HomeScreen = () => {
   const { keyword, pageNumber } = useParams();
 
   const dispatch = useDispatch();
-
-  
 
   const productsList = useSelector((state) => state.productList);
 
@@ -26,12 +24,10 @@ const HomeScreen = () => {
     dispatch(fetchProducts(keyword, pageNumber));
   }, [dispatch, keyword, pageNumber]);
 
-
   return (
     <>
+      {!keyword && <ProductCarousel />}
       <h1>Latest Products</h1>
-      {loading && <Loading />}
-      {error && <Message variant="danger">{error}</Message>}
       {!loading && !error && (
         <>
           <Row>
