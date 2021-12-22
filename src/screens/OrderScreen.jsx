@@ -37,13 +37,18 @@ const OrderScreen = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  // const addDecimals = (num) => {
-  //   return (Math.round(num * 100) / 100).toFixed(2);
-  // };
+  const addDecimals = (num) => {
+    return (Math.round(num * 100) / 100).toFixed(2);
+  };
 
-  // order.itemsPrice = addDecimals(
-  //   order.orders.reduce((a, c) => a + c.price * c.quantity, 0)
-  // );
+  order &&
+    (order.itemsPrice = addDecimals(
+      order.orders.reduce((a, c) => a + c.price * c.quantity, 0)
+    ));
+  order &&
+    (order.taxPrice = addDecimals(
+      addDecimals(Number((order.itemsPrice * 0.15).toFixed(2)))
+    ));
 
   useEffect(() => {
     // const addPaypalScript = async () => {

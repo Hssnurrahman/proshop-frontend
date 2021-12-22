@@ -3,11 +3,9 @@ import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 const SearchBox = () => {
-
   const navigate = useNavigate();
 
   const [keyword, setKeyword] = useState("");
-
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -21,7 +19,7 @@ const SearchBox = () => {
   };
 
   return (
-    <Form onSubmit={submitHandler}>
+    <Form onSubmit={submitHandler} style={{ display: "flex" }}>
       <Form.Control
         type="text"
         name="q"
@@ -29,9 +27,15 @@ const SearchBox = () => {
           setKeyword(event.target.value);
         }}
         placeholder="Search Products"
-        className="mr-sm-2 ml-sm-5"
+        className="mr-sm-2 ml-sm-5 mr-3"
+        style={{ marginRight: "1.5rem " }}
       ></Form.Control>
-      <Button type="submit" variant="outline-success" className="p-2">
+      <Button
+        type="submit"
+        variant="outline-success"
+        className="p-2"
+        style={{ marginRight: "1rem " }}
+      >
         Search
       </Button>
     </Form>

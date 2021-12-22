@@ -12,8 +12,6 @@ const ProductCarousel = () => {
 
   const { products, error } = productTop;
 
-  console.log(products);
-
   useEffect(() => {
     dispatch(fetchTopProducts());
   }, [dispatch]);

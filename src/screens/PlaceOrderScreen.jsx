@@ -101,7 +101,7 @@ const PlaceOrderScreen = () => {
                       </Col>
                       <Col md={4}>
                         {cartItem.quantity} x ${cartItem.price} = $
-                        {cartItem.quantity * cartItem.price}
+                        {(cartItem.quantity * cartItem.price).toFixed(2)}
                       </Col>
                     </Row>
                   </ListGroup.Item>

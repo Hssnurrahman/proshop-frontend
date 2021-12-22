@@ -11,9 +11,11 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getProductDetails, reviewProduct } from "../actions/productActions";
+import { getOrderDetails } from "../actions/orderActions";
 import Loading from "../components/Loading";
 import Message from "../components/Message";
 import Rating from "../components/Rating";
+import useTitle from "../hooks/useTitle";
 
 const ProductScreen = () => {
   const navigate = useNavigate();
@@ -46,7 +48,7 @@ const ProductScreen = () => {
     }
 
     dispatch(getProductDetails(id));
-  }, [id, dispatch, successReview]);
+  }, [id, dispatch, successReview, product]);
 
   const addToCartHandler = () => {
     navigate(`/cart/${id}?quantity=${quantity}`);
@@ -57,6 +59,12 @@ const ProductScreen = () => {
     dispatch(reviewProduct(id, { rating, comment }));
   };
 
+  useTitle(
+    product.name === undefined
+      ? "Proshop"
+      : `${product.name && product.name} | ProShop`
+  );
+
   return (
     <div>
       <Link to="/" className="btn btn-dark my-3">
@@ -64,7 +72,7 @@ const ProductScreen = () => {
       </Link>
       {loading && <Loading />}
       {/* {error && <Message>{error}</Message>} */}
-      {!loading && !error && (
+      {!loading && !error && product && (
         <>
           <Row>
             <Col sm={12} md={6}>
@@ -106,6 +114,18 @@ const ProductScreen = () => {
                       </Col>
                     </Row>
                   </ListGroup.Item>
+                  {/* {product.countInStock > 0 && (
+                    <ListGroup.Item>
+                      <Row>
+                        Quantity:
+                        <Row>
+                          <Button>+</Button>
+                          <Button>+</Button>
+                          <Button>-</Button>
+                        </Row>
+                      </Row>
+                    </ListGroup.Item>
+                  )} */}
                   {product.countInStock > 0 && (
                     <ListGroup.Item>
                       <Row>

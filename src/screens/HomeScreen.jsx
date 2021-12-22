@@ -6,6 +6,7 @@ import { fetchProducts } from "../actions/productActions";
 import Paginate from "../components/Paginate";
 import Product from "../components/Product";
 import ProductCarousel from "../components/ProductCarousel";
+import useTitle from "../hooks/useTitle";
 
 const HomeScreen = () => {
   const { keyword, pageNumber } = useParams();
@@ -19,6 +20,8 @@ const HomeScreen = () => {
   useEffect(() => {
     dispatch(fetchProducts(keyword, pageNumber));
   }, [dispatch, keyword, pageNumber]);
+
+  useTitle("ProShop | Home");
 
   return (
     <>
