@@ -191,7 +191,10 @@ const OrderScreen = () => {
               </ListGroup.Item>
               {!order.isPaid && (
                 <ListGroup.Item>
-                  <PayPalButton amount="5" onSuccess={successPaymentHandler} />
+                  <PayPalButton
+                    amount={order.totalPrice}
+                    onSuccess={successPaymentHandler}
+                  />
                 </ListGroup.Item>
               )}
               {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
