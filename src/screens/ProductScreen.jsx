@@ -16,6 +16,7 @@ import Loading from "../components/Loading";
 import Message from "../components/Message";
 import Rating from "../components/Rating";
 import useTitle from "../hooks/useTitle";
+import ButtonComponent from "../components/Button Component";
 
 const ProductScreen = () => {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ const ProductScreen = () => {
     }
 
     dispatch(getProductDetails(id));
-  }, [id, dispatch, successReview, product]);
+  }, [id, dispatch, successReview]);
 
   const addToCartHandler = () => {
     navigate(`/cart/${id}?quantity=${quantity}`);
@@ -210,7 +211,7 @@ const ProductScreen = () => {
                           }}
                         ></Form.Control>
                       </Form.Group>
-                      <Button type="submit">Comment</Button>
+                      <ButtonComponent type="submit" text="Comment" />
                     </Form>
                   ) : (
                     <Message>

@@ -3,8 +3,10 @@ import { Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { saveShippingAddress } from "../actions/cartActions";
+import ButtonComponent from "../components/Button Component";
 import CheckoutSteps from "../components/ChecoutSteps";
 import FormContainer from "../components/FormContainer";
+import useTitle from "../hooks/useTitle";
 
 const ShippingScreen = () => {
   const navigate = useNavigate();
@@ -26,6 +28,8 @@ const ShippingScreen = () => {
 
     navigate("/payment");
   };
+
+  useTitle("Shipping Screen | ProShop");
 
   return (
     <FormContainer>
@@ -72,9 +76,7 @@ const ShippingScreen = () => {
             onChange={(e) => setCountry(e.target.value)}
           />
         </Form.Group>
-        <Button type="submit" variant="primary">
-          Continue
-        </Button>
+        <ButtonComponent type="submit" text="Continue" />
       </Form>
     </FormContainer>
   );
