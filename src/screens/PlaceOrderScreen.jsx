@@ -5,6 +5,7 @@ import { createOrder } from "../actions/orderActions";
 import CheckoutSteps from "../components/ChecoutSteps";
 import Message from "../components/Message";
 import { useEffect } from "react";
+import useTitle from "../hooks/useTitle";
 
 const PlaceOrderScreen = () => {
   const dispatch = useDispatch();
@@ -55,6 +56,8 @@ const PlaceOrderScreen = () => {
       navigate(`/order/${order._id}`);
     }
   }, [navigate, success, order]);
+
+  useTitle("Place Order Screen | ProShop");
 
   return (
     <div>
@@ -143,6 +146,7 @@ const PlaceOrderScreen = () => {
               <ListGroup.Item>
                 <Button
                   type="button"
+                  className="rounded"
                   disabled={cart.cartItems.length === 0}
                   onClick={placeOrderHandler}
                   style={{ width: "100%" }}

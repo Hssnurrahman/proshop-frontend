@@ -13,6 +13,7 @@ import {
   Row,
 } from "react-bootstrap";
 import Meta from "../components/Meta";
+import useTitle from "../hooks/useTitle";
 
 const CartScreen = () => {
   const { id } = useParams();
@@ -50,6 +51,8 @@ const CartScreen = () => {
       navigate("/login?redirect=shipping");
     }
   };
+
+  useTitle("Cart Screem | ProShop");
 
   return (
     <Row>
@@ -121,6 +124,7 @@ const CartScreen = () => {
           <ListGroup.Item>
             <Button
               type="button"
+              className="rounded"
               style={{ width: "100%" }}
               disabled={cartItems.length === 0}
               onClick={checkoutHandler}

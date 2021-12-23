@@ -3,8 +3,10 @@ import { Button, Col, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { savePaymentMethod } from "../actions/cartActions";
+import ButtonComponent from "../components/Button Component";
 import CheckoutSteps from "../components/ChecoutSteps";
 import FormContainer from "../components/FormContainer";
+import useTitle from "../hooks/useTitle";
 
 const PaymentMethodScreen = () => {
   const navigate = useNavigate();
@@ -28,6 +30,8 @@ const PaymentMethodScreen = () => {
     navigate("/placeorder");
   };
 
+  useTitle("Payment Method Screen | ProShop");
+
   return (
     <FormContainer>
       <CheckoutSteps step1 step2 step3 />
@@ -46,9 +50,7 @@ const PaymentMethodScreen = () => {
             ></Form.Check>
           </Col>
         </Form.Group>
-        <Button type="submit" variant="primary">
-          Continue
-        </Button>
+        <ButtonComponent type="submit" text="Continue" />
       </Form>
     </FormContainer>
   );

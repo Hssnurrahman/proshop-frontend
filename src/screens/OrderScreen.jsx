@@ -7,12 +7,14 @@ import {
   getOrderDetails,
   payOrder,
   deliverOrder,
+  listOrders,
 } from "../actions/orderActions";
 import { default as Loading, default as Message } from "../components/Message";
 import {
   ORDER_PAY_RESET,
   ORDER_DELIVER_RESET,
 } from "../constants/orderConstants";
+import useTitle from "../hooks/useTitle";
 
 const OrderScreen = () => {
   // const [sdkReady, setSdkReady] = useState(false);
@@ -36,6 +38,10 @@ const OrderScreen = () => {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+
+  const orderList = useSelector((state) => state.orderList);
+
+  const { orders } = orderList;
 
   const addDecimals = (num) => {
     return (Math.round(num * 100) / 100).toFixed(2);
@@ -66,6 +72,7 @@ const OrderScreen = () => {
     // addPaypalScript();
 
     // await axios.post("/api/config/paypal");
+    dispatch(listOrders());
 
     if (!order || successPay || successDeliver) {
       dispatch(getOrderDetails(id));
@@ -82,13 +89,15 @@ const OrderScreen = () => {
     dispatch(deliverOrder(order));
   };
 
+  useTitle("Order Screen | ProShop");
+
   return loading ? (
     <Loading />
   ) : error ? (
     <Message variant="danger">{error}</Message>
   ) : (
     <>
-      <h1>Order {order._id}</h1>
+      <h1>Order # {orders && orders.length}</h1>
       <Row>
         <Col md={8}>
           <ListGroup.Item>
@@ -107,7 +116,7 @@ const OrderScreen = () => {
               {order.shippingAddress.country}
             </p>
             {order.isDelivered && (
-              <Message variant="sucess">
+              <Message variant="success">
                 Delivered On {order.deliveredAt}
               </Message>
             )}
@@ -122,41 +131,37 @@ const OrderScreen = () => {
               {order.paymentMethod}
             </p>
             {order.isPaid && (
-              <Message variant="sucess">Paid On {order.paidAt} </Message>
+              <Message variant="success">Paid On {order.paidAt} </Message>
             )}
             {!order.isPaid && <Message variant="danger">Not Paid</Message>}
           </ListGroup.Item>
           <ListGroup.Item>
             <h2>Order Items</h2>
-            {order.orders.length === 0 ? (
-              <Message>Order Is Empty</Message>
-            ) : (
-              <ListGroup variant="flush">
-                {order.orders.map((cartItem, index) => (
-                  <ListGroup.Item key={index}>
-                    <Row>
-                      <Col md={1}>
-                        <Image
-                          src={cartItem.image}
-                          alt={cartItem.name}
-                          fluid
-                          rounded
-                        />
-                      </Col>
-                      <Col>
-                        <Link to={`/product/${cartItem.product}`}>
-                          {cartItem.name}
-                        </Link>
-                      </Col>
-                      <Col md={4}>
-                        {cartItem.quantity} x ${cartItem.price} = $
-                        {cartItem.quantity * cartItem.price}
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-                ))}
-              </ListGroup>
-            )}
+            <ListGroup variant="flush">
+              {order.orders.map((cartItem, index) => (
+                <ListGroup.Item key={index}>
+                  <Row>
+                    <Col md={1}>
+                      <Image
+                        src={cartItem.image}
+                        alt={cartItem.name}
+                        fluid
+                        rounded
+                      />
+                    </Col>
+                    <Col>
+                      <Link to={`/product/${cartItem.product}`}>
+                        {cartItem.name}
+                      </Link>
+                    </Col>
+                    <Col md={4}>
+                      {cartItem.quantity} x ${cartItem.price} = $
+                      {(cartItem.quantity * cartItem.price).toFixed(2)}
+                    </Col>
+                  </Row>
+                </ListGroup.Item>
+              ))}
+            </ListGroup>
           </ListGroup.Item>
         </Col>
         <Col md={4}>
@@ -201,7 +206,7 @@ const OrderScreen = () => {
                 <ListGroup.Item>
                   <Button
                     type="button"
-                    className="btn"
+                    className="btn rounded"
                     onClick={deliverHandler}
                     style={{ width: "100%" }}
                   >
