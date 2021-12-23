@@ -39,7 +39,7 @@ export const loginUser = (email, password) => async (dispatch) => {
     // });
 
     const { data } = await axios.post(
-      "${process.env.REACT_APP_API_URL}/users/login",
+      `${process.env.REACT_APP_API_URL}/users/login`,
       { email, password },
       config
     );
@@ -85,7 +85,7 @@ export const registerUser = (name, email, password) => async (dispatch) => {
     // });
 
     const { data } = await axios.post(
-      "${process.env.REACT_APP_API_URL}/users",
+      `${process.env.REACT_APP_API_URL}/users`,
       { name, email, password },
       config
     );
@@ -196,7 +196,10 @@ export const listUsers = () => async (dispatch, getState) => {
     //   config,
     // });
 
-    const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/users`, config);
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_API_URL}/users`,
+      config
+    );
 
     dispatch({ type: USER_LIST_SUCCESS, payload: data });
   } catch (error) {
